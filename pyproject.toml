@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mypy-safe-unpack"
-version = "0.1.0"  # Automatically updated up poetry-dynamic-versioning
+version = "0.2.0"  # Automatically updated up poetry-dynamic-versioning
 description = ""
 authors = ["Tetsutaro Maruyama <tetsutaro.maruyama@gmail.com>"]
 repository = "https://github.com/tetutaro/mypy_safe_unpack"
