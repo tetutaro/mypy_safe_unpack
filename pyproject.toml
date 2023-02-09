@@ -4,22 +4,15 @@ version = "0.0.0"  # Automatically updated up poetry-dynamic-versioning
 description = ""
 authors = ["Tetsutaro Maruyama <tetsutaro.maruyama@gmail.com>"]
 repository = "https://github.com/tetutaro/mypy_safe_unpack"
-packages = [{include = "mypy_safe_unpack"}]
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
+pydantic = "^1.10.4"
 
 [tool.poetry.group.dev.dependencies]
 black = "^22.12.0"
 flake8 = "4.0.1"
 mypy = "^0.991"
-pytest = "^7.2.1"
-pytest-cov = "^4.0.0"
-pytest-flake8 = "^1.1.1"
-pytest-mypy = "^0.10.3"
-sphinx = "^6.1.3"
-sphinx-rtd-theme = "1.2.0rc2"
-sphinx-pyproject-poetry = {git = "https://github.com/tetutaro/sphinx_pyproject_poetry.git"}
 python-lsp-server = "^1.7.1"
 
 [build-system]
