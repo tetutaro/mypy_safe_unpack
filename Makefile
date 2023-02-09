@@ -1,3 +1,59 @@
+.PHONY: unpack-everything
+unpack-everything:
+	@python -m mypy_safe_unpack.unpack_everything
+
+.PHONY: unpack-each-type
+unpack-each-type:
+	@echo "Dict"
+	@python -m mypy_safe_unpack.dict
+	@echo "Dict[Any, Any]"
+	@python -m mypy_safe_unpack.dict_any_any
+	@echo "Dict[str, Any]"
+	@python -m mypy_safe_unpack.dict_str_any
+	@echo "Dict[str, Union[str, int]]"
+	@python -m mypy_safe_unpack.dict_strict
+	@echo "NamedTuple._asdict()"
+	@python -m mypy_safe_unpack.namedtuple_asdict
+	@echo "TypedDict"
+	@python -m mypy_safe_unpack.typeddict
+	@echo "vars(class)"
+	@python -m mypy_safe_unpack.vars_class
+	@echo "BaseModel.dict()"
+	@python -m mypy_safe_unpack.basemodel_dict
+
+.PHONY: mypy-safe-type
+mypy-safe-type:
+	@echo "NamedTuple._asdict()"
+	@mypy mypy_safe_unpack/namedtuple_asdict.py
+	@echo "TypedDict"
+	@mypy mypy_safe_unpack/typeddict.py
+	@echo "vars(class)"
+	@mypy mypy_safe_unpack/vars_class.py
+	@echo "BaseModel.dict()"
+	@mypy mypy_safe_unpack/basemodel_dict.py
+
+.PHONY: mypy-unsafe-type
+mypy-unsafe-type:
+	@echo "Dict"
+	@mypy mypy_safe_unpack/dict.py
+	@echo "Dict[Any, Any]"
+	@mypy mypy_safe_unpack/dict_any_any.py
+	@echo "Dict[str, Any]"
+	@mypy mypy_safe_unpack/dict_str_any.py
+
+.PHONY: mypy-failed-type
+mypy-failed-type:
+	@echo "Dict[str, Union[str, int]]"
+	@mypy mypy_safe_unpack/dict_strict.py
+
+.PHONY: starred-expression
+starred-expression:
+	@python -m mypy_safe_unpack.starred_expression
+
+.PHONY: mypy-starred-expression
+mypy-starred-expression:
+	@mypy --enable-incomplete-feature=Unpack mypy_safe_unpack/starred_expression.py
+
 .PHONY: clean
 clean: clean-python clean-package clean-tests clean-system
 

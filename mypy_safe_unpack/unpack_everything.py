@@ -19,60 +19,55 @@ from collections import namedtuple
 
 from pydantic import BaseModel
 
-
-def print_red(text: str) -> None:
-    print(f"\x1b[31m{text}\x1b[0m")
-
-
-def print_green(text: str) -> None:
-    print(f"\x1b[32m{text}\x1b[0m")
-
-
-def print_yellow(text: str) -> None:
-    print(f"\x1b[33m{text}\x1b[0m")
+from mypy_safe_unpack.intro import (
+    intro_position,
+    intro_keyword,
+    print_blue,
+    print_red,
+)
 
 
-def print_blue(text: str) -> None:
-    print(f"\x1b[34m{text}\x1b[0m")
-
-
-def intro(age: int, name: str, dummy: t.Optional[t.List] = None) -> None:
-    text = f"{name} is {age} years old."
-    if text == "Taro is 3 years old.":
-        print_green("INTRO: " + text)
-    else:
-        print_yellow("INTRO: " + text)
+def apply_each(person: t.Any, nstar: int) -> None:
+    try:
+        if nstar == 0:
+            print(person)
+        elif nstar == 1:
+            print(*person)
+        else:
+            print(**person)
+    except Exception as e:
+        print_red(f"PRINT: {e}")
+    try:
+        if nstar == 0:
+            intro_position(person)
+        elif nstar == 1:
+            intro_position(*person)
+        else:
+            intro_position(**person)
+    except Exception as e:
+        print_red(f"POSITION: {e}")
+    try:
+        if nstar == 0:
+            intro_keyword(person)
+        elif nstar == 1:
+            intro_keyword(*person)
+        else:
+            intro_keyword(**person)
+    except Exception as e:
+        print_red(f"KEYWORD: {e}")
     return
 
 
 def apply(pat: str, person: t.Any) -> None:
+    # no star expression
     print_blue(f"===  {pat}  ===")
-    try:
-        print(person)
-    except Exception as e:
-        print_red(f"PRINT: {e}")
-    try:
-        intro(person)
-    except Exception as e:
-        print_red(f"INTRO: {e}")
+    apply_each(person=person, nstar=0)
+    # single star expression
     print_blue(f"=== * {pat} * ===")
-    try:
-        print(*person)
-    except Exception as e:
-        print_red(f"PRINT: {e}")
-    try:
-        intro(*person)
-    except Exception as e:
-        print_red(f"INTRO: {e}")
+    apply_each(person=person, nstar=1)
+    # double star expression
     print_blue(f"=== ** {pat} ** ===")
-    try:
-        print(**person)
-    except Exception as e:
-        print_red(f"PRINT: {e}")
-    try:
-        intro(**person)
-    except Exception as e:
-        print_red(f"INTRO: {e}")
+    apply_each(person=person, nstar=2)
     return
 
 

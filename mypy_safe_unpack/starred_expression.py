@@ -13,7 +13,7 @@ def intro(
     age: int,
     name: str,
     *args: te.Unpack[t.Tuple[int, ...]],
-    **kwargs: te.Unpack[t.TypedDict],
+    **kwargs: te.Unpack[IntroKwargs],
 ) -> None:
     print(f"{name} is {age} years old.")
     print(args)

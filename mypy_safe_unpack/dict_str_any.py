@@ -2,10 +2,7 @@
 # -*- coding:utf-8 -*-
 import typing as t
 
-
-def intro(age: int, name: str) -> None:
-    print(f"{name} is {age} years old.")
-    return
+from mypy_safe_unpack.intro import intro_keyword
 
 
 def main() -> None:
@@ -13,7 +10,7 @@ def main() -> None:
         "name": "Taro",
         "age": 3,
     }
-    intro(**person)
+    intro_keyword(**person)
     return
 
 
